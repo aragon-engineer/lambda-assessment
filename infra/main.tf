@@ -1,15 +1,8 @@
-# ──────────────────────────────────────────────
-# Data
-# ──────────────────────────────────────────────
 data "aws_caller_identity" "current" {}
 
-# ──────────────────────────────────────────────
-# Lambda Function (container image)
-# ──────────────────────────────────────────────
 resource "aws_lambda_function" "hello" {
-  function_name = var.project_name
+  function_name = "hello-lambda-v2"
 
-  # Role 
   role = "arn:aws:iam::163531628320:role/hello-lambda-exec-role"
 
   package_type = "Image"
@@ -29,9 +22,6 @@ resource "aws_lambda_function" "hello" {
   }
 }
 
-# ──────────────────────────────────────────────
-# Lambda Function URL (public, no auth)
-# ──────────────────────────────────────────────
 resource "aws_lambda_function_url" "hello" {
   function_name      = aws_lambda_function.hello.function_name
   authorization_type = "NONE"
