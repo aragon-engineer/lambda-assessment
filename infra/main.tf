@@ -1,7 +1,7 @@
 data "aws_caller_identity" "current" {}
 
 resource "aws_lambda_function" "hello" {
-  function_name = "hello-lambda-v2"
+  function_name = "hello-lambda"
 
   role = "arn:aws:iam::163531628320:role/hello-lambda-exec-role"
 
@@ -17,6 +17,10 @@ resource "aws_lambda_function" "hello" {
     }
   }
 
+  lifecycle {
+    ignore_changes = [role]
+  }
+
   tags = {
     Project = var.project_name
   }
@@ -25,11 +29,4 @@ resource "aws_lambda_function" "hello" {
 resource "aws_lambda_function_url" "hello" {
   function_name      = aws_lambda_function.hello.function_name
   authorization_type = "NONE"
-
-  cors {
-    allow_credentials = false
-    allow_origins     = ["*"]
-    allow_methods     = ["GET"]
-    max_age           = 86400
-  }
 }
