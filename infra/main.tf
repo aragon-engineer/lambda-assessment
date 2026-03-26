@@ -131,6 +131,7 @@ data "aws_iam_policy_document" "github_actions_permissions" {
       "lambda:DeleteFunctionUrlConfig",
       "lambda:TagResource",
       "lambda:ListTags",
+      "lambda:ListVersionsByFunction",
     ]
     resources = ["arn:aws:lambda:${var.aws_region}:${data.aws_caller_identity.current.account_id}:function:${var.project_name}"]
   }
@@ -152,6 +153,7 @@ data "aws_iam_policy_document" "github_actions_permissions" {
     actions = [
       "ecr:GetLifecyclePolicy",
       "ecr:PutLifecyclePolicy",
+      "ecr:ListTagsForResource",
     ]
     resources = [aws_ecr_repository.lambda_repo.arn]
   }
