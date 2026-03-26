@@ -1,0 +1,11 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Mac
+.DS_Store
+
+# Python
+__pycache__/
